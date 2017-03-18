@@ -1,0 +1,42 @@
+BudgetBundle\Entity\Operation:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: datetime
+        label:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+            nullable: true
+        amount:
+            type: float
+        signature:
+            type: string
+            length: 255
+            unique: true
+        importDate:
+            type: datetime
+    manyToOne:
+        account:
+            targetEntity: BudgetBundle\Entity\Account
+            inversedBy: operations
+            joinColumn:
+                name: account_id
+                referencedColumnName: id
+        category:
+            targetEntity: BudgetBundle\Entity\Category
+            inversedBy: operations
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setSignature ]

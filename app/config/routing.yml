@@ -1,0 +1,7 @@
+budget:
+    resource: "@BudgetBundle/Resources/config/routing.yml"
+    prefix:   /
+
+import:
+    resource: "@ImportBundle/Resources/config/routing.yml"
+    prefix:   /

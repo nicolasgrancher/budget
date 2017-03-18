@@ -1,0 +1,27 @@
+BudgetBundle\Entity\Account:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+        number:
+            type: string
+            length: 255
+            unique: true
+        balance:
+            type: float
+        importDate:
+            type: datetime
+    oneToMany:
+        operations:
+          targetEntity: BudgetBundle\Entity\Operation
+          mappedBy: account
+    lifecycleCallbacks: {  }
