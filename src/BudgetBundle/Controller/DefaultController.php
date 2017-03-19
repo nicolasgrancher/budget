@@ -18,6 +18,10 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('BudgetBundle:Default:index.html.twig');
+        $accounts = $this->get('doctrine')->getRepository('BudgetBundle:Account')->findAll();
+
+        return $this->render('BudgetBundle:Default:index.html.twig', [
+            'accounts' => $accounts,
+        ]);
     }
 }

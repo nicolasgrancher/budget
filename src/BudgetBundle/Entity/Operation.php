@@ -188,6 +188,30 @@ class Operation
     }
 
     /**
+     * Get importDate
+     *
+     * @return \DateTime
+     */
+    public function getImportDate()
+    {
+        return $this->importDate;
+    }
+
+    /**
+     * Set importDate
+     *
+     * @param \DateTime $importDate
+     *
+     * @return Operation
+     */
+    public function setImportDate($importDate)
+    {
+        $this->importDate = $importDate;
+
+        return $this;
+    }
+
+    /**
      * Get account
      *
      * @return \BudgetBundle\Entity\Account
@@ -231,30 +255,6 @@ class Operation
     public function setCategory(\BudgetBundle\Entity\Category $category = null)
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get importDate
-     *
-     * @return \DateTime
-     */
-    public function getImportDate()
-    {
-        return $this->importDate;
-    }
-
-    /**
-     * Set importDate
-     *
-     * @param \DateTime $importDate
-     *
-     * @return Operation
-     */
-    public function setImportDate($importDate)
-    {
-        $this->importDate = $importDate;
 
         return $this;
     }

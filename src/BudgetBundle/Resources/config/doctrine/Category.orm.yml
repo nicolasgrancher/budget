@@ -12,8 +12,18 @@ BudgetBundle\Entity\Category:
             type: string
             length: 255
             unique: true
+        type:
+            type: string
+            length: 255
     oneToMany:
         operations:
             targetEntity: BudgetBundle\Entity\Operation
             mappedBy: category
+        children:
+            targetEntity: BudgetBundle\Entity\Category
+            mappedBy: parent
+    manyToOne:
+        parent:
+          targetEntity: BudgetBundle\Entity\Category
+          inversedBy: children
     lifecycleCallbacks: {  }

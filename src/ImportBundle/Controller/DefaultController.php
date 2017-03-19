@@ -7,6 +7,7 @@ namespace ImportBundle\Controller;
 
 use BudgetBundle\Entity\Account;
 use BudgetBundle\Entity\Operation;
+use BudgetBundle\Entity\OperationPattern;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,6 +84,14 @@ class DefaultController extends Controller
                             'signature' => $operation->getSignature(),
                         ]);
                         if (is_null($operationExists)) {
+                            // auto affect category
+                            $patterns = $this->get('doctrine')->getRepository('BudgetBundle:OperationPattern')->findByPattern($operation->getLabel());
+                            if (sizeof($patterns) === 1) {
+                                /** @var OperationPattern $pattern */
+                                $pattern = $patterns[0];
+                                $operation->setCategory($pattern->getCategory());
+                            }
+
                             $em->persist($operation);
                         } else {
                             unset($operation);

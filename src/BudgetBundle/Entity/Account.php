@@ -132,6 +132,30 @@ class Account
     }
 
     /**
+     * Get importDate
+     *
+     * @return \DateTime
+     */
+    public function getImportDate()
+    {
+        return $this->importDate;
+    }
+
+    /**
+     * Set importDate
+     *
+     * @param \DateTime $importDate
+     *
+     * @return Account
+     */
+    public function setImportDate($importDate)
+    {
+        $this->importDate = $importDate;
+
+        return $this;
+    }
+
+    /**
      * Add operation
      *
      * @param \BudgetBundle\Entity\Operation $operation
@@ -163,29 +187,5 @@ class Account
     public function getOperations()
     {
         return $this->operations;
-    }
-
-    /**
-     * Get importDate
-     *
-     * @return \DateTime
-     */
-    public function getImportDate()
-    {
-        return $this->importDate;
-    }
-
-    /**
-     * Set importDate
-     *
-     * @param \DateTime $importDate
-     *
-     * @return Account
-     */
-    public function setImportDate($importDate)
-    {
-        $this->importDate = $importDate;
-
-        return $this;
     }
 }

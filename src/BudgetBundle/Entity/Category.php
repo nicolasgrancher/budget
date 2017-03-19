@@ -22,9 +22,24 @@ class Category
     private $name;
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $operations;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $children;
+
+    /**
+     * @var \BudgetBundle\Entity\Category
+     */
+    private $parent;
 
     /**
      * Constructor
@@ -32,6 +47,7 @@ class Category
     public function __construct()
     {
         $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -69,6 +85,30 @@ class Category
     }
 
     /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Category
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
      * Add operation
      *
      * @param \BudgetBundle\Entity\Operation $operation
@@ -100,5 +140,63 @@ class Category
     public function getOperations()
     {
         return $this->operations;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \BudgetBundle\Entity\Category $child
+     *
+     * @return Category
+     */
+    public function addChild(\BudgetBundle\Entity\Category $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \BudgetBundle\Entity\Category $child
+     */
+    public function removeChild(\BudgetBundle\Entity\Category $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \BudgetBundle\Entity\Category
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \BudgetBundle\Entity\Category $parent
+     *
+     * @return Category
+     */
+    public function setParent(\BudgetBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
     }
 }

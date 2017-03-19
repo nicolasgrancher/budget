@@ -1,0 +1,27 @@
+BudgetBundle\Entity\OperationPattern:
+    type: entity
+    repositoryClass: BudgetBundle\Repository\OperationPatternRepository
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        pattern:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        category:
+            targetEntity: BudgetBundle\Entity\Category
+            inversedBy: operations
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: {  }

@@ -22,6 +22,7 @@ BudgetBundle\Entity\Account:
             type: datetime
     oneToMany:
         operations:
+          orderBy: { 'date': 'DESC' }
           targetEntity: BudgetBundle\Entity\Operation
           mappedBy: account
     lifecycleCallbacks: {  }
