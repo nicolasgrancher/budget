@@ -1,5 +1,6 @@
 BudgetBundle\Entity\Category:
     type: entity
+    repositoryClass: BudgetBundle\Repository\CategoryRepository
     table: null
     id:
         id:
@@ -9,6 +10,10 @@ BudgetBundle\Entity\Category:
                 strategy: AUTO
     fields:
         name:
+            type: string
+            length: 255
+            unique: true
+        color:
             type: string
             length: 255
             unique: true

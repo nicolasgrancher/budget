@@ -27,6 +27,11 @@ class Category
     private $type;
 
     /**
+     * @var string
+     */
+    private $color;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $operations;
@@ -196,6 +201,30 @@ class Category
     public function setParent(\BudgetBundle\Entity\Category $parent = null)
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return Category
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
 
         return $this;
     }

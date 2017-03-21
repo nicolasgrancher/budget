@@ -27,7 +27,7 @@ class DefaultController extends Controller
 
         $this->importCsvStatements($statementsFolder);
 
-        return new Response('import finished');
+        return $this->render('ImportBundle:Default:index.html.twig', []);
     }
 
     /**
@@ -74,7 +74,7 @@ class DefaultController extends Controller
                         $operation->setAccount($account);
 
                         $operation->setDate($this->toDate($data[0]));
-                        $operation->setLabel($data[1]);
+                        $operation->setLabel(trim($data[1]));
                         $operation->setAmount($this->toFloat($data[2]));
 
                         $operation->setSignature();
@@ -93,8 +93,21 @@ class DefaultController extends Controller
                             }
 
                             $em->persist($operation);
+                        } elseif (is_null($operationExists->getCategory())) {
+                            // auto affect category
+                            $patterns = $this->get('doctrine')->getRepository('BudgetBundle:OperationPattern')->findByPattern($operation->getLabel());
+                            if (sizeof($patterns) === 1) {
+                                /** @var OperationPattern $pattern */
+                                $pattern = $patterns[0];
+                                $operationExists->setCategory($pattern->getCategory());
+                                $em->persist($operationExists);
+                            } else {
+                                unset($operation);
+                                unset($operationExists);
+                            }
                         } else {
                             unset($operation);
+                            unset($operationExists);
                         }
                     }
 

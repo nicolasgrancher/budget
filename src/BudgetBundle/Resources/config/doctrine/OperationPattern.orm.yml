@@ -2,6 +2,9 @@ BudgetBundle\Entity\OperationPattern:
     type: entity
     repositoryClass: BudgetBundle\Repository\OperationPatternRepository
     table: null
+    indexes:
+        pattern_index:
+          columns: [ pattern ]
     id:
         id:
             type: integer
@@ -12,6 +15,7 @@ BudgetBundle\Entity\OperationPattern:
         pattern:
             type: string
             length: 255
+            unique: true
         description:
             type: string
             length: 255

@@ -1,18 +1,22 @@
-{% for account in accounts %}
-    <h2>{{ account.name }} - {{ account.balance }}</h2>
+{% extends 'base.html.twig' %}
 
-    <h3>Operations ({{ account.operations | length }})</h3>
-    <table>
-        <tbody>
-        {% for operation in account.operations %}
-            <tr>
-                <td>{{ operation.date | date('Y-m-d') }}</td>
-                <td>{{ operation.amount > 0 ? operation.amount }}</td>
-                <td>{{ operation.amount < 0 ? operation.amount }}</td>
-                <td>{{ operation.category ? operation.category.name }}</td>
-                <td>{{ operation.label }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% endfor %}
+{% block body %}
+    {% for account in accounts %}
+        <h2>{{ account.name }} - {{ account.balance }}</h2>
+
+        <h3>Operations ({{ account.operations | length }})</h3>
+        <table>
+            <tbody>
+            {% for operation in account.operations %}
+                <tr>
+                    <td>{{ operation.date | date('Y-m-d') }}</td>
+                    <td>{{ operation.amount > 0 ? operation.amount }}</td>
+                    <td>{{ operation.amount < 0 ? operation.amount }}</td>
+                    <td>{{ operation.category ? operation.category.name }}</td>
+                    <td>{{ operation.label }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock %}
