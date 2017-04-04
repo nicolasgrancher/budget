@@ -1,33 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <ul class="tabs" data-tabs id="tabs">
-        {% for account in accounts %}
-            <li class="tabs-title {{ loop.first ? 'is-active' }}"><a
-                        href="#panel{{ account.id }}">{{ account.name }}</a></li>
-        {% endfor %}
-    </ul>
-
-    <div class="tabs-content" data-tabs-content="tabs">
-        {% for account in accounts %}
-            <div class="tabs-panel" id="panel{{ account.id }}">
-                <h2>{{ account.name }} - {{ account.balance }}</h2>
-
-                <h3>Operations ({{ account.operations | length }})</h3>
-                <table>
-                    <tbody>
-                    {% for operation in account.operations %}
-                        <tr>
-                            <td>{{ operation.date | date('Y-m-d') }}</td>
-                            <td>{{ operation.amount > 0 ? operation.amount }}</td>
-                            <td>{{ operation.amount < 0 ? operation.amount }}</td>
-                            <td>{{ operation.category ? operation.category.name }}</td>
-                            <td>{{ operation.label }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% endfor %}
+    <div class="callout large">
+        <div class="row column text-center">
+            <h1>Application budget</h1>
+            <p class="lead">L'application pour suivre son budget</p>
+            <a class="button large" href="{{ path('budget_reporting') }}">Reporting</a>
+            <a class="button large hollow" href="{{ path('budget_list') }}">Liste des opérations</a>
+            <a class="button large hollow" href="{{ path('import_homepage') }}">Importation</a>
+        </div>
     </div>
 {% endblock %}

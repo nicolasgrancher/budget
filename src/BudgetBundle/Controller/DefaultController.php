@@ -19,9 +19,17 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        return $this->render('BudgetBundle:Default:index.html.twig', []);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listAction()
+    {
         $accounts = $this->get('doctrine')->getRepository('BudgetBundle:Account')->findAll();
 
-        return $this->render('BudgetBundle:Default:index.html.twig', [
+        return $this->render('BudgetBundle:Default:list.html.twig', [
             'accounts' => $accounts,
         ]);
     }

@@ -2,6 +2,10 @@ budget_homepage:
     path:     /
     defaults: { _controller: BudgetBundle:Default:index }
 
+budget_list:
+    path:     /list
+    defaults: { _controller: BudgetBundle:Default:list }
+
 budget_reporting:
     path:     /reporting
     defaults: { _controller: BudgetBundle:Default:reporting }
