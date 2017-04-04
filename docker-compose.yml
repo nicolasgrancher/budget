@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+    db:
+        image: mysql
+        ports:
+            - 3306:3306
+        volumes:
+            - "./mysql:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+#    redis:
+#        image: redis:alpine
+#        ports:
+#            - 6379:6379
+    php:
+        build: docker/php7-fpm
+        ports:
+            - 9000:9000
+        links:
+            - db:mysqldb
+#            - redis
+        volumes:
+            - ".:/var/www/budget"
+            - "./var/logs:/var/www/budget/app/logs"
+    nginx:
+        build: docker/nginx
+        ports:
+            - 80:80
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./docker/sites-enabled:/etc/nginx/conf.d
+            - ./var/logs/:/var/log/nginx
+#    elk:
+#        image: willdurand/elk
+#        ports:
+#            - 81:80
+#        volumes:
+#            - ./elk/logstash:/etc/logstash
+#            - ./elk/logstash/patterns:/opt/logstash/patterns
+#        volumes_from:
+#            - php
+#            - nginx
