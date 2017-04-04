@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Reporting - {{ parent() }}{% endblock %}
+
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"
+            integrity="sha256-+q+dGCSrVbejd3MDuzJHKsk2eXd4sF5XYEMfPZsOnYE=" crossorigin="anonymous"></script>
+
     <script>
         {% for account in accounts %}
         var ctx{{ account.id }} = document.getElementById("chart-{{ account.id }}");
@@ -73,11 +77,40 @@
 {% endblock %}
 
 {% block body %}
-    {% for account in accounts %}
-        <h2>{{ account.name }} - {{ account.balance }}</h2>
+    <ul class="tabs" data-tabs id="tabs">
+        {% for account in accounts %}
+            <li class="tabs-title {{ loop.first ? 'is-active' }}"><a
+                        href="#panel{{ account.id }}">{{ account.name }}</a></li>
+        {% endfor %}
 
-        <button onclick="hideAllDataset(chart{{ account.id }})">Hide all</button>
-        <button onclick="showAllDataset(chart{{ account.id }})">Show all</button>
-        <canvas id="chart-{{ account.id }}"></canvas>
-    {% endfor %}
+        <li class="tabs-title"><a href="#panel-monitoring">Suivi</a></li>
+    </ul>
+
+    <div class="tabs-content" data-tabs-content="tabs">
+        {% for account in accounts %}
+            <div class="tabs-panel" id="panel{{ account.id }}">
+                <h2>{{ account.name }}
+                    <small>{{ account.balance }}€</small>
+                </h2>
+
+                <button onclick="hideAllDataset(chart{{ account.id }})" class="button small">Hide all</button>
+                <button onclick="showAllDataset(chart{{ account.id }})" class="button small">Show all</button>
+                <canvas id="chart-{{ account.id }}" height="120"></canvas>
+            </div>
+        {% endfor %}
+
+        <div class="tabs-panel" id="panel-monitoring">
+            <h2>Suivi</h2>
+
+            <dl>
+                {% for monitoring in monitorings %}
+                    {% set dateDiff = ("now"|date('U') - monitoring.beginningDate|date('U')) %}
+                    {% set monthDiff = ((dateDiff|date('Y'))-1970)*12 + dateDiff|date('m') %}
+
+                    <dt>{{ monitoring.name }}</dt>
+                    <dd>{{ (monitoring.amount / monthDiff) | number_format(2, ',', ' ') }}€/mois</dd>
+                {% endfor %}
+            </dl>
+        </div>
+    </div>
 {% endblock %}

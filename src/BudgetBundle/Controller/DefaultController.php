@@ -39,10 +39,13 @@ class DefaultController extends Controller
             $operations[$account->getId()] = $this->get('doctrine')->getRepository('BudgetBundle:Category')->findAmountByMonth($account);
         }
 
+        $monitorings = $this->get('doctrine')->getRepository('BudgetBundle:Monitoring')->findMonthlyCostByMonitoring();
+
         return $this->render('BudgetBundle:Default:reporting.html.twig', [
             'accounts' => $accounts,
             'operations' => $operations,
             'timeline' => $this->buildTimeline($operations),
+            'monitorings' => $monitorings,
         ]);
     }
 

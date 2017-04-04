@@ -1,0 +1,21 @@
+BudgetBundle\Entity\Monitoring:
+    type: entity
+    repositoryClass: BudgetBundle\Repository\MonitoringRepository
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+        beginningDate:
+            type: date
+    manyToMany:
+        categories:
+          targetEntity: BudgetBundle\Entity\Category
+    lifecycleCallbacks: {  }
