@@ -22,7 +22,8 @@ class MonitoringRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('m')
             ->select('m.name AS name,
             SUM(o.amount) AS amount,
-            m.beginningDate AS beginningDate')
+            MIN(o.date) AS beginningDate,
+            MAX(o.date) AS endingDate')
             ->join('m.categories', 'c')
             ->join('c.operations', 'o')
             ->where('o.date >= m.beginningDate')
