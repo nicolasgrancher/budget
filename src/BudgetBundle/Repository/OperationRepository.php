@@ -13,6 +13,8 @@ namespace BudgetBundle\Repository;
  */
 class OperationRepository extends \Doctrine\ORM\EntityRepository
 {
+    const CATEGORY_SAVING = 6;
+
     public function findAmountByMonth()
     {
         $results = $this->createQueryBuilder('o')
@@ -20,6 +22,8 @@ class OperationRepository extends \Doctrine\ORM\EntityRepository
             SUBSTRING(o.date, 6, 2) AS month, 
             SUM(o.amount) AS amount')
             ->groupBy('year, month')
+            ->where('o.category != :savingCategory')
+            ->setParameter('savingCategory', static::CATEGORY_SAVING)
             ->getQuery()
             ->getArrayResult();
 
