@@ -8,8 +8,7 @@
 
     <script>
         {% for account in accounts %}
-        var ctx{{ account.id }} = document.getElementById("chart-{{ account.id }}");
-        var chart{{ account.id }} = new Chart(ctx{{ account.id }}, {
+        var chart{{ account.id }} = new Chart(document.getElementById('chart-{{ account.id }}'), {
             type: 'line',
             data: {
                 labels: ['{{ timeline | join("', '") | raw }}'],
@@ -44,6 +43,36 @@
             }
         });
         {% endfor %}
+
+
+        new Chart(document.getElementById('chart-evolution'), {
+            type: 'line',
+            data: {
+                labels: ['{{ timeline | join("', '") | raw }}'],
+                datasets: [
+                    {
+                        label: 'Evolution',
+                        fill: false,
+                        spanGaps: true,
+                        borderColor: 'black',
+                        data: [
+                            {% for month in evolution %}
+                            {{ month.amount }},
+                            {% endfor %}
+                        ]
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
 
         var showDataset = function (chart, index) {
             var meta = chart.getDatasetMeta(index);
@@ -83,6 +112,7 @@
                         href="#panel{{ account.id }}">{{ account.name }}</a></li>
         {% endfor %}
 
+        <li class="tabs-title"><a href="#panel-evolution">Dépenses/Revenus</a></li>
         <li class="tabs-title"><a href="#panel-monitoring">Suivi</a></li>
     </ul>
 
@@ -98,6 +128,12 @@
                 <canvas id="chart-{{ account.id }}" height="120"></canvas>
             </div>
         {% endfor %}
+
+        <div class="tabs-panel" id="panel-evolution">
+            <h2>Dépenses/Revenus</h2>
+
+            <canvas id="chart-evolution" height="120"></canvas>
+        </div>
 
         <div class="tabs-panel" id="panel-monitoring">
             <h2>Suivi</h2>

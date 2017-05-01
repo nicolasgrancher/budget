@@ -1,5 +1,6 @@
 BudgetBundle\Entity\Operation:
     type: entity
+    repositoryClass: BudgetBundle\Repository\OperationRepository
     table: null
     id:
         id:
