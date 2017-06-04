@@ -1,5 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    <script>
+        $.get('/categories', function (data) {
+            $.each(data, function (i, item) {
+                $('.categories').append($('<option />', {
+                    value: item.id,
+                    text: item.name
+                }));
+            });
+
+            $('.categories').each(function (i, item) {
+                var selection = $(item).data('selection');
+                $(item).val(selection);
+            });
+
+            $('.categories').change(function () {
+                var item = $(this);
+                var operationId = item.data('operation');
+                var categoryId = item.val();
+
+                $.post('/operations/' + operationId, {
+                    category: categoryId
+                }, function () {
+                    item.effect("highlight", {color: '#3adb76'}, 3000);
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <h1>Liste des opérations</h1>
 
@@ -13,7 +43,7 @@
     <div class="tabs-content" data-tabs-content="tabs">
         {% for account in accounts %}
             <div class="tabs-panel" id="panel{{ account.id }}">
-                <h2>{{ account.name }} - {{ account.balance }}</h2>
+                <h2>{{ account.name }} | {{ account.balance }}</h2>
 
                 <h3>Operations ({{ account.operations | length }})</h3>
                 <table>
@@ -23,7 +53,12 @@
                             <td>{{ operation.date | date('Y-m-d') }}</td>
                             <td>{{ operation.amount > 0 ? operation.amount }}</td>
                             <td>{{ operation.amount < 0 ? operation.amount }}</td>
-                            <td>{{ operation.category ? operation.category.name }}</td>
+                            <td>
+                                <select data-selection="{{ operation.category ? operation.category.id }}"
+                                        data-operation="{{ operation.id }}" class="categories">
+                                    <option value=""></option>
+                                </select>
+                            </td>
                             <td>{{ operation.label }}</td>
                         </tr>
                     {% endfor %}

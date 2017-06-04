@@ -1,0 +1,11 @@
+BudgetBundle\Entity\Category:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        name:
+            expose: true
+        type:
+            expose: true
+        color:
+            expose: true

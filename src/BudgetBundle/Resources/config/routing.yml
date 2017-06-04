@@ -9,3 +9,11 @@ budget_list:
 budget_reporting:
     path:     /reporting
     defaults: { _controller: BudgetBundle:Default:reporting }
+
+categories_list:
+    type: rest
+    resource: "@BudgetBundle/Controller/CategoryController.php"
+
+operations_list:
+    type: rest
+    resource: "@BudgetBundle/Controller/OperationController.php"
