@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <style>
+        table tbody tr.warning {
+            background-color: #ffae00;
+        }
+    </style>
+{% endblock %}
+
 {% block javascripts %}
     <script>
         $.get('/categories', function (data) {
@@ -49,7 +57,7 @@
                 <table>
                     <tbody>
                     {% for operation in account.operations %}
-                        <tr>
+                        <tr class="{{ operation.category ? '' : 'warning' }}">
                             <td>{{ operation.date | date('Y-m-d') }}</td>
                             <td>{{ operation.amount > 0 ? operation.amount }}</td>
                             <td>{{ operation.amount < 0 ? operation.amount }}</td>
