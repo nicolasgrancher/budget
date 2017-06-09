@@ -39,5 +39,15 @@ BudgetBundle\Entity\Operation:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
+    oneToOne:
+        reconciliation:
+            targetEntity: BudgetBundle\Entity\Operation
+            inversedBy: reconcialiated
+            joinColumn:
+                name: operation_id
+                referencedColumnName: id
+        reconcialiated:
+            targetEntity: BudgetBundle\Entity\Operation
+            mappedBy: reconciliation
     lifecycleCallbacks:
         prePersist: [ setSignature ]

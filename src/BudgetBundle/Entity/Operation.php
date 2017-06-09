@@ -56,6 +56,15 @@ class Operation
      */
     private $category;
 
+    /**
+     * @var \BudgetBundle\Entity\Operation
+     */
+    private $reconciliation;
+
+    /**
+     * @var \BudgetBundle\Entity\Operation
+     */
+    private $reconcialiated;
 
     /**
      * Get id
@@ -255,6 +264,54 @@ class Operation
     public function setCategory(\BudgetBundle\Entity\Category $category = null)
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get reconciliation
+     *
+     * @return \BudgetBundle\Entity\Operation
+     */
+    public function getReconciliation()
+    {
+        return $this->reconciliation;
+    }
+
+    /**
+     * Set reconciliation
+     *
+     * @param \BudgetBundle\Entity\Operation $reconciliation
+     *
+     * @return Operation
+     */
+    public function setReconciliation(\BudgetBundle\Entity\Operation $reconciliation = null)
+    {
+        $this->reconciliation = $reconciliation;
+
+        return $this;
+    }
+
+    /**
+     * Get reconcialiated
+     *
+     * @return \BudgetBundle\Entity\Operation
+     */
+    public function getReconcialiated()
+    {
+        return $this->reconcialiated;
+    }
+
+    /**
+     * Set reconcialiated
+     *
+     * @param \BudgetBundle\Entity\Operation $reconcialiated
+     *
+     * @return Operation
+     */
+    public function setReconcialiated(\BudgetBundle\Entity\Operation $reconcialiated = null)
+    {
+        $this->reconcialiated = $reconcialiated;
 
         return $this;
     }
