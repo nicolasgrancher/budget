@@ -26,6 +26,10 @@ BudgetBundle\Entity\Operation:
             unique: true
         importDate:
             type: datetime
+        manual:
+            type: boolean
+            options:
+                default: false
     manyToOne:
         account:
             targetEntity: BudgetBundle\Entity\Account

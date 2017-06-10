@@ -27,6 +27,7 @@ class MonitoringRepository extends \Doctrine\ORM\EntityRepository
             ->join('m.categories', 'c')
             ->join('c.operations', 'o')
             ->where('o.date >= m.beginningDate')
+            ->andWhere('o.reconciliation IS NULL')
             ->groupBy('m')
             ->getQuery()
             ->getArrayResult();

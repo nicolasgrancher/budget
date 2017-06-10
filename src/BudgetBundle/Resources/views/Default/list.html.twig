@@ -67,7 +67,15 @@
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td>{{ operation.label }}</td>
+                            <td>
+                                {% if operation.manual %}
+                                    <em>[manuel]</em>
+                                {% endif %}
+                                {% if operation.reconciliation %}
+                                    <em>[rapproché]</em>
+                                {% endif %}
+                                {{ operation.label }}
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

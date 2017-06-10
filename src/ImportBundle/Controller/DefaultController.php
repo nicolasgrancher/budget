@@ -269,7 +269,10 @@ class DefaultController extends Controller
             $balance = $this->toFloat($data[4]);
 
             if (is_null($account->getImportDate()) || $accountImportDate > $account->getImportDate()) {
-                $account->setBalance($balance);
+                $manualAmount = $this->get('doctrine')->getRepository('BudgetBundle:Operation')
+                    ->findAmountManuallyAdded($account);
+
+                $account->setBalance($balance + $manualAmount);
                 $account->setImportDate($accountImportDate);
             }
         } elseif ($lineNumber >= 5) {

@@ -30,6 +30,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->join('c.operations', 'o')
             ->groupBy('year, month, c')
             ->where('o.account = :account')
+            ->andWhere('o.reconciliation IS NULL')
             ->setParameter('account', $account)
             ->getQuery()
             ->getArrayResult();

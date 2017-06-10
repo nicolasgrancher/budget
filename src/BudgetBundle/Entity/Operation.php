@@ -47,6 +47,11 @@ class Operation
     private $importDate;
 
     /**
+     * @var boolean
+     */
+    private $manual = false;
+
+    /**
      * @var \BudgetBundle\Entity\Account
      */
     private $account;
@@ -312,6 +317,30 @@ class Operation
     public function setReconcialiated(\BudgetBundle\Entity\Operation $reconcialiated = null)
     {
         $this->reconcialiated = $reconcialiated;
+
+        return $this;
+    }
+
+    /**
+     * Get manual
+     *
+     * @return boolean
+     */
+    public function getManual()
+    {
+        return $this->manual;
+    }
+
+    /**
+     * Set manual
+     *
+     * @param boolean $manual
+     *
+     * @return Operation
+     */
+    public function setManual($manual)
+    {
+        $this->manual = $manual;
 
         return $this;
     }
